@@ -69,7 +69,14 @@ export class QuizService {
 
   getAnswereSheet(quizId,userId):Observable<any>{          //quiz for show chart in result.......quiz from answersheet collection
     return this.http
-      .get(`${this.url}/api/user/singleTestAnswerSheet/${quizId}/${userId}`)
+      .get(`${this.url}/api/user/singleTestAnswerSheet/${userId}/${quizId}`)
+      .pipe(retry(2),catchError(this.handleError))
+  }
+
+
+  deleteQuizById(quizId) : Observable<any>{
+    return this.http
+      .get(`${this.url}/api/admin/deleteQuizByID/${quizId}`)
       .pipe(retry(2),catchError(this.handleError))
   }
 
